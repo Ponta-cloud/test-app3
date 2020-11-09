@@ -1,0 +1,7 @@
+<h1>一覧を表示(アップデート順)</h1>
+<% @details.each do |detail| %>
+  <h2>名前</h2>
+    <%= link_to "#{detail.group.group_name}", "scrapings/#{detail.group_id}/" %>
+  <h2>コンテンツ</h2>
+    <%= detail.event_title %>
+<% end %>

@@ -1,0 +1,11 @@
+<% @group.each do |group| %>
+    <h1><%= group.group_name %></h1>
+<% end %>    
+<% @group.each do |group| %>
+    <% group.event_details.each do |detail| %>
+    <P><%= detail.event_title %></P>
+    <P><%= detail.event_date %></P>
+    <p><%= detail.event_deadline %></p>
+    <p><%= detail.url %></p>
+    <% end %>
+<% end %>    
