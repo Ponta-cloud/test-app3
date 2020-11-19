@@ -1,13 +1,13 @@
 require 'mechanize'
 class ScrapeSaveBlueship
-  def self.acquire_links(links)
-    links.each do |url|
-      scrape(url)
+  def self.each_event_title(link)
+    link.each do |url|
+      scrape_event_detail(url)
       sleep 1
     end
   end 
        
-  def self.scrape(url)
+  def self.scrape_event_detail(url)
     agent = Mechanize.new
     page  = agent.get(url)
     name        = page.search('//*[@id="main_content"]/div[2]/div[2]/table/tr/td/a/span').inner_text 
