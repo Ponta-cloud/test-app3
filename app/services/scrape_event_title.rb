@@ -10,9 +10,9 @@ class ScrapeEventTitle
   end 
   
   def self.scrape_event_title(url)
-    link = []
+    link  = []
     agent = Mechanize.new
-    page = agent.get(url)
+    page  = agent.get(url)
     elements = page.search('#search_result > div > div > ul > li > article > div.event_info > h2 > a')
     elements.each do |ele|
     link << ele.get_attribute('href')

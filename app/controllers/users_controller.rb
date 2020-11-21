@@ -20,12 +20,12 @@ class UsersController < ApplicationController
     @user = User.new
   end  
   def create
-      user = User.new(
-        name: params[:name],
-        password: params[:password]
-        ) 
-      user.save  
-      redirect_to("/")
+    user = User.new(
+      name: params[:name],
+      password: params[:password]
+      ) 
+    user.save  
+    redirect_to("/")
      
   end
   def login_form

@@ -1,8 +1,8 @@
 require 'rails_helper'
-RSpec.describe ScrapeSaveBlueship, type: :model do
+RSpec.describe ScrapeSaveBlueship do
   
   it "should be true" do
-    blueship = ScrapeSaveBlueship.acquire_links(["https://blueshipjapan.com/event/5781"])
+    blueship = ScrapeSaveBlueship.each_event_title(["https://blueshipjapan.com/event/5781"])
     expect(blueship).to eq (["https://blueshipjapan.com/event/5781"])
   end
   
