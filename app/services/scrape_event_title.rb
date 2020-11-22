@@ -1,15 +1,12 @@
 require 'mechanize'
-require_relative 'scrape_save_blueship'
 
 class ScrapeEventTitle 
-  def self.each_catalog_url(links)
-    links.each do |url|
-      scrape_event_title(url)
-      sleep 1
-    end
-  end 
+  attr_reader :url
+  def initialize(url)
+    @url = url
+  end  
   
-  def self.scrape_event_title(url)
+  def scrape_event_title
     link  = []
     agent = Mechanize.new
     page  = agent.get(url)
@@ -17,6 +14,17 @@ class ScrapeEventTitle
     elements.each do |ele|
     link << ele.get_attribute('href')
     end  
-    ScrapeSaveBlueship.each_event_title(link)
+    each_event_title(link)
   end  
+  
+  def each_event_title(link)
+    link.each do |ai|
+      sharaku(ai)
+      sleep 1
+    end
+  end 
+  
+  def sharaku(ai)
+    ScrapeSaveBlueship.scrape_event_detail(ai)
+  end 
 end

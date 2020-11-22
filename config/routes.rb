@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  root 'users#index'
-  get "login" => "users#login_form"
-  post "login" => "users#login"
-  post "users/create" => "users#create"
-  get "signup" => "users#new"
+  root 'service_users#index'
+  get "login" => "service_users#login_form"
+  post "login" => "service_users#login"
+  post "users/create" => "service_users#create"
+  get "signup" => "service_users#new"
 end

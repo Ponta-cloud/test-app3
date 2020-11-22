@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class ServiceUsersController < ApplicationController
   def index
     @details       = EventDetail.select(:event_title, :group_id).includes(:group)
   end  
@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
   
   def login
-    @user = User.find_by(name: params[:name],password: params[:password])
+    @user = ServiceUser.find_by(name: params[:name],password: params[:password])
     # @userが存在するかどうかを判定するif文を作成してください
     if @user
       @group = Group.where(group_name: params[:name])
@@ -17,10 +17,10 @@ class UsersController < ApplicationController
     end
   end
   def new
-    @user = User.new
+    @user = ServiceUser.new
   end  
   def create
-    user = User.new(
+    user = ServiceUser.new(
       name: params[:name],
       password: params[:password]
       ) 
