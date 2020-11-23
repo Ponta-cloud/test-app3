@@ -4,7 +4,6 @@ require 'mechanize'
 
 class ScrapeSaveBlueship
 
-
   def blueship_url
     catalog_url(last_page_number)
   end  
