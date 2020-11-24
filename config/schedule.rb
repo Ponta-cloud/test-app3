@@ -14,6 +14,9 @@ def jst(time)
 end
 
 # 日本時間の 午前 7:00のバッチをスケジュール
-every 1.day, at: jst('12:40 pm') do
-  runner 'BlueshipUrls.blueship_url'
+every 1.day, at: jst('7:00 am') do
+  runner "ScrapeSaveBlueship.new.run"
+  runner "BlueshipAssociateLoginUser.new.run"
+  runner "ScrapeSaveMoshicom.new.run"
+  runner "MoshicomAssociateLoginUser.new.run"
 end

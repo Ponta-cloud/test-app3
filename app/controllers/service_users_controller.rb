@@ -1,6 +1,6 @@
 class ServiceUsersController < ApplicationController
   def index
-    @details       = EventDetail.select(:event_title, :group_id).includes(:group)
+    @details = EventDetail.select(:event_title, :group_id).includes(:group)
   end  
   def show
 
@@ -11,9 +11,9 @@ class ServiceUsersController < ApplicationController
     # @userが存在するかどうかを判定するif文を作成してください
     if @user
       @group = Group.where(group_name: params[:name])
-      render("users/show")
+      render("service_users/show")
     else
-      render("users/login_form")
+      render("service_users/login_form")
     end
   end
   def new

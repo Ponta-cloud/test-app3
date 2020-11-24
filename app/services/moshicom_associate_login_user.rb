@@ -1,10 +1,10 @@
-class BlueshipAssociateLoginUser < BlueshipScrapeSave
-  
-#BlueshipScrapeSaveを継承し、scrape_event_detail(url)メソッドを変更
+class MoshicomAssociateLoginUser < MoshicomScrapeSave
+
+#MoshicomScrapeSaveを継承し、scrape_event_detail(url)メソッドを変更
   def scrape_event_detail(url)
     agent = Mechanize.new
     page  = agent.get(url)
-    name        = page.search('//*[@id="main_content"]/div[2]/div[2]/table/tr/td/a/span').inner_text 
+    name  = page.search('//*[@id="main"]/div[4]/div[1]/section/div[1]/div/div[2]/h2/a').inner_text     
     associate_service_user_save(name)
   end
   
@@ -18,4 +18,5 @@ class BlueshipAssociateLoginUser < BlueshipScrapeSave
       end
     end
   end
-end
+
+end 
