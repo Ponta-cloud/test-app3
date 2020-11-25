@@ -4,21 +4,32 @@ require 'mechanize'
 class BlueshipScrapeSave < Scraping
   
   def run
-    catalog_url(last_page_catalog_url)
+    last_pg_number = fetch_last_page_num
+    urls = catalog_url(last_pg_number)
+    urls.each do |urls|
+      fetch_event_title_url(urls)
+      sleep 1
+    end
   end 
   
-  def scrape_event_titles(urls)
-    scrape_event_title(urls)
+  def fetch_event_title_url(urls)
+    link = scrape_event_title(urls)
+        link.each do |url|
+      scrape_save_event_detail(url)
+      sleep 1
+    end
   end 
        
   def scrape_save_event_detail(url)
     scrape_event_detail(url)
+    url, name, title, date, application = scrape_event_detail(url)
+    save_elements(url, name, title, date, application)
   end
   
   
   private
   
-  def last_page_catalog_url
+  def fetch_last_page_num
     base_url = 'https://blueshipjapan.com/search/event'
     base_dir = '/catalog?per_page='
     
@@ -31,18 +42,9 @@ class BlueshipScrapeSave < Scraping
     for pg_number in 0..last_pg_number do
       link << "https://blueshipjapan.com/search/event/catalog?per_page=#{pg_number/18*18}"
     end
-    links = link.uniq
-    catalog_url_each(links)
+    link.uniq
   end
 
-#以下のscrape_event_titles(urls)でpublicに戻る  
-  def catalog_url_each(links)
-    links.each do |urls|
-      scrape_event_titles(urls)
-      sleep 1
-    end
-  end 
-  
   def scrape_event_title(urls)
     link  = []
     agent = Mechanize.new
@@ -51,16 +53,8 @@ class BlueshipScrapeSave < Scraping
     elements.each do |ele|
     link << ele.get_attribute('href')
     end  
-    each_event_title(link)
+    link
   end  
-  
-#以下のscrape_save_event_detail(url)でpublicに戻る    
-  def each_event_title(link)
-    link.each do |url|
-      scrape_save_event_detail(url)
-      sleep 1
-    end
-  end 
   
   def scrape_event_detail(url)
     agent = Mechanize.new
@@ -71,5 +65,5 @@ class BlueshipScrapeSave < Scraping
     application = page.search('//*[@id="main_content"]/div[2]/div[2]/table/tr[4]/td').inner_text
     save_elements(url, name, title, date, application)
   end
+  
 end
-#Scrapingクラスを継承し、要素をモデルに保存
