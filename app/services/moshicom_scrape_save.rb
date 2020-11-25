@@ -1,11 +1,17 @@
 require 'mechanize'
 class MoshicomScrapeSave < Scraping 
   def run
-    moshicom_urls_each(moshicom_url)
+    url = moshicom_url
+    url.each do |url|
+      scrape_save_event_detail(url)
+      sleep 1
+    end
   end
   
   def scrape_save_event_detail(url)
     scrape_event_detail(url)
+    url, name, title, date, application = scrape_event_detail(url)
+    save_elements(url, name, title, date, application)
   end
   
   
@@ -17,14 +23,6 @@ class MoshicomScrapeSave < Scraping
     "https://moshicom.com/#{i}"
     end  
   end 
-  
-#以下のscrape_save_event_detail(url)でpublicに戻る    
-  def moshicom_urls_each(order)
-    order.each do |url|
-      scrape_save_event_detail(url)
-      sleep 1
-    end
-  end  
   
   def scrape_event_detail(url)
     agent = Mechanize.new
