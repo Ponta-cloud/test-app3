@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'mechanize'
-class MoshicomAssociateLoginUser < MoshicomScrapeSave
+class MoshicomAssociateLoginUser 
   
   def run
     url = moshicom_url

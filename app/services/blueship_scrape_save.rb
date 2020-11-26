@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'mechanize'
-class BlueshipScrapeSave < Scraping
+class BlueshipScrapeSave < DefaltScraping
   
   def run
     last_pg_number = fetch_last_page_num

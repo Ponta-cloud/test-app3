@@ -1,5 +1,5 @@
 require 'mechanize'
-class MoshicomScrapeSave < Scraping 
+class MoshicomScrapeSave < DefaltScraping 
   def run
     url = moshicom_url
     url.each do |url|
