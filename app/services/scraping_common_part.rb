@@ -1,4 +1,4 @@
-class DefaltScraping
+class ScrapingCommonPart
   def save_elements(url, name, title, date, application)
     group = Group.where(group_name: name).first_or_initialize
     group.save

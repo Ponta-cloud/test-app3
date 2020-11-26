@@ -1,8 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'mechanize'
-class BlueshipScrapeSave < DefaltScraping
-  
+class BlueshipScrapeSave < ScrapingCommonPart
   def run
     last_pg_number = fetch_last_page_num
     urls = catalog_url(last_pg_number)
@@ -32,7 +31,6 @@ class BlueshipScrapeSave < DefaltScraping
   def fetch_last_page_num
     base_url = 'https://blueshipjapan.com/search/event'
     base_dir = '/catalog?per_page='
-    
     page = Nokogiri::HTML(open(base_url+base_dir + '0'))
     page.css("#search_result > div > div > div > a:nth-child(5)")[0]['href'].match(/page=(\d+)/)[1].to_i
   end  
