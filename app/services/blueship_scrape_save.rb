@@ -22,7 +22,7 @@ class BlueshipScrapeSave < Scraping
        
   def scrape_save_event_detail(url)
     scrape_event_detail(url)
-    url, name, title, date, application = scrape_event_detail(url)
+    url, name, title, date, application = @url, @name, @title, @date, @application
     save_elements(url, name, title, date, application)
   end
   
@@ -59,11 +59,11 @@ class BlueshipScrapeSave < Scraping
   def scrape_event_detail(url)
     agent = Mechanize.new
     page  = agent.get(url)
-    name        = page.search('//*[@id="main_content"]/div[2]/div[2]/table/tr/td/a/span').inner_text 
-    title       = page.search('//*[@id="main_content"]/h1').inner_text 
-    date        = page.search('//*[@id="main_content"]/div[2]/div[1]/div[1]/div[1]/p[2]').inner_text 
-    application = page.search('//*[@id="main_content"]/div[2]/div[2]/table/tr[4]/td').inner_text
-    save_elements(url, name, title, date, application)
+    @name        = page.search('//*[@id="main_content"]/div[2]/div[2]/table/tr/td/a/span').inner_text 
+    @title       = page.search('//*[@id="main_content"]/h1').inner_text 
+    @date        = page.search('//*[@id="main_content"]/div[2]/div[1]/div[1]/div[1]/p[2]').inner_text 
+    @application = page.search('//*[@id="main_content"]/div[2]/div[2]/table/tr[4]/td').inner_text
+    @url = url
   end
   
 end
